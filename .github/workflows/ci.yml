@@ -1,0 +1,51 @@
+name: CI - Test & Build
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Job 1 - Backend Test
+  backend-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Python setup
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+
+      - name: Backend import check
+        run: |
+          cd backend
+          python -c "import pickle, fastapi, uvicorn; print('Backend OK')"
+
+  # Job 2 - Frontend Build
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Node setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install & Build
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      - name: Build success check
+        run: |
+          ls frontend/dist
+          echo "Frontend build OK"
