@@ -74,6 +74,20 @@ def load_models():
         print(f"Error loading pickle files: {e}")
         raise RuntimeError(f"Could not load ML assets: {e}")
 
+@app.get("/")
+def root():
+    return {
+        "name": "SMS Spam Classifier API",
+        "version": "1.0.0",
+        "status": "running",
+        "description": "ML-powered API to detect spam SMS messages using Multinomial Naive Bayes",
+        "endpoints": {
+            "predict": "POST /api/predict",
+            "metrics": "GET /api/metrics",
+            "docs": "GET /docs"
+        }
+    }
+
 # Request Schema
 class MessageRequest(BaseModel):
     text: str
