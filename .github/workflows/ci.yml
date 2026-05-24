@@ -26,7 +26,12 @@ jobs:
       - name: Backend import check
         run: |
           cd backend
-          python -c "import pickle, fastapi, uvicorn; print('Backend OK')"
+          python -c "import pickle, fastapi, uvicorn, nltk, sklearn; print('Backend OK')"
+
+      - name: Check pkl files exist
+        run: |
+          ls backend/model.pkl && echo "model.pkl OK" || echo "model.pkl missing"
+          ls backend/vectorizer.pkl && echo "vectorizer.pkl OK" || echo "vectorizer.pkl missing"
 
   # Job 2 - Frontend Build
   frontend-build:
@@ -37,7 +42,7 @@ jobs:
       - name: Node setup
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install & Build
         run: |
