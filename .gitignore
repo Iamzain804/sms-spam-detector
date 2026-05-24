@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Research (bhari files, GitHub pe zaroorat nahi)
+research/spam.csv
+
+# OS
+.DS_Store
+Thumbs.db
